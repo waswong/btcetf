@@ -8,11 +8,17 @@ def scrape_data():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # These selectors are hypothetical; you need to replace them with actual selectors
-    aum = soup.select_one('#aum-selector').text.strip()
-    shares_outstanding = soup.select_one('#shares-outstanding-selector').text.strip()
-    total_bitcoin = soup.select_one('#total-bitcoin-selector').text.strip()
-    bitcoin_per_share = soup.select_one('#bitcoin-per-share-selector').text.strip()
+    # Using a more generic selector
+    # Find the container that includes the data, then navigate to the specific element
+    aum_selector = "#880b07ba83bd > div > div > ul > li:nth-child(1) > div > p.Text_Text__xt7Jy.Text_Text_body__t0eXi.TableItem_TableItem__value___2Fjx"
+    shares_outstanding_selector = "#880b07ba83bd > div > div > ul > li:nth-child(3) > div > p.Text_Text__xt7Jy.Text_Text_body__t0eXi.TableItem_TableItem__value___2Fjx"
+    total_bitcoin_selector = "#880b07ba83bd > div > div > ul > li:nth-child(7) > div > p.Text_Text__xt7Jy.Text_Text_body__t0eXi.TableItem_TableItem__value___2Fjx"
+    bitcoin_per_share_selector = "#880b07ba83bd > div > div > ul > li:nth-child(9) > div > p.Text_Text__xt7Jy.Text_Text_body__t0eXi.TableItem_TableItem__value___2Fjx"
+
+    aum = soup.select_one(aum_selector).text.strip() if soup.select_one(aum_selector) else 'Not found'
+    shares_outstanding = soup.select_one(shares_outstanding_selector).text.strip() if soup.select_one(shares_outstanding_selector) else 'Not found'
+    total_bitcoin = soup.select_one(total_bitcoin_selector).text.strip() if soup.select_one(total_bitcoin_selector) else 'Not found'
+    bitcoin_per_share = soup.select_one(bitcoin_per_share_selector).text.strip() if soup.select_one(bitcoin_per_share_selector) else 'Not found'
 
     return {
         "Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
