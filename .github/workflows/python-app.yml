@@ -6,8 +6,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  schedule:
-    - cron: '0 2 * * *' # Runs at 02:00 UTC (22:00 ET)
+  #schedule:
+    #- cron: '0 2 * * *' # Runs at 02:00 UTC (22:00 ET)
 
 permissions:
   contents: read
